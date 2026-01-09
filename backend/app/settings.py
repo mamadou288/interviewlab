@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local apps
     'users',
+    'profiles',
+    'roles',
+    'interviews',
 ]
 
 MIDDLEWARE = [
@@ -237,3 +240,10 @@ if USE_S3:
     AWS_S3_REGION_NAME = env('AWS_S3_REGION_NAME', default='us-east-1')
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
+# File Upload Settings
+MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
+ALLOWED_FILE_TYPES = [
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+]

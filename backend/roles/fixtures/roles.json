@@ -1,0 +1,228 @@
+[
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440001",
+    "fields": {
+      "name": "Backend Engineer",
+      "category": "backend",
+      "keywords_json": ["python", "django", "flask", "fastapi", "node.js", "express", "java", "spring", "c#", ".net", "api", "rest", "graphql", "postgresql", "mysql", "mongodb", "redis", "docker", "kubernetes", "aws", "microservices", "serverless"],
+      "description": "Develops and maintains server-side applications, APIs, and databases. Works with backend technologies, frameworks, and cloud services.",
+      "level_keywords_json": {
+        "junior": ["basics", "fundamentals", "crud", "rest api"],
+        "mid": ["optimization", "scalability", "design patterns", "testing"],
+        "senior": ["architecture", "system design", "leadership", "mentoring"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440002",
+    "fields": {
+      "name": "Frontend Developer",
+      "category": "frontend",
+      "keywords_json": ["javascript", "typescript", "react", "vue", "angular", "html", "css", "sass", "webpack", "vite", "next.js", "nuxt", "responsive", "ui", "ux", "accessibility", "performance"],
+      "description": "Builds user interfaces and client-side applications. Focuses on creating responsive, accessible, and performant web experiences.",
+      "level_keywords_json": {
+        "junior": ["html", "css", "javascript basics", "responsive design"],
+        "mid": ["react", "vue", "state management", "testing"],
+        "senior": ["architecture", "performance optimization", "team leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440003",
+    "fields": {
+      "name": "Full-stack Developer",
+      "category": "fullstack",
+      "keywords_json": ["javascript", "python", "react", "node.js", "django", "postgresql", "mongodb", "aws", "docker", "ci/cd", "api", "rest", "graphql", "typescript"],
+      "description": "Works on both frontend and backend development. Handles end-to-end application development from UI to database.",
+      "level_keywords_json": {
+        "junior": ["full stack basics", "mvc", "crud operations"],
+        "mid": ["full stack frameworks", "deployment", "testing"],
+        "senior": ["system architecture", "technical leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440004",
+    "fields": {
+      "name": "DevOps Engineer",
+      "category": "devops",
+      "keywords_json": ["docker", "kubernetes", "jenkins", "gitlab ci", "github actions", "terraform", "ansible", "aws", "azure", "gcp", "linux", "bash", "python", "monitoring", "logging", "ci/cd"],
+      "description": "Manages infrastructure, deployment pipelines, and system reliability. Focuses on automation, monitoring, and scalability.",
+      "level_keywords_json": {
+        "junior": ["docker basics", "ci/cd fundamentals", "linux"],
+        "mid": ["kubernetes", "infrastructure as code", "monitoring"],
+        "senior": ["architecture", "scalability", "team leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440005",
+    "fields": {
+      "name": "Data Scientist",
+      "category": "data",
+      "keywords_json": ["python", "r", "sql", "pandas", "numpy", "scikit-learn", "tensorflow", "pytorch", "jupyter", "machine learning", "deep learning", "statistics", "data analysis", "visualization"],
+      "description": "Analyzes complex data sets to extract insights and build predictive models. Uses statistical methods and machine learning algorithms.",
+      "level_keywords_json": {
+        "junior": ["data analysis", "pandas", "visualization", "statistics basics"],
+        "mid": ["machine learning", "modeling", "feature engineering"],
+        "senior": ["deep learning", "mlops", "research", "leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440006",
+    "fields": {
+      "name": "Data Engineer",
+      "category": "data",
+      "keywords_json": ["python", "sql", "spark", "hadoop", "kafka", "airflow", "etl", "data pipeline", "postgresql", "mongodb", "aws", "azure", "data warehouse", "data lake"],
+      "description": "Designs and builds data pipelines and infrastructure. Focuses on data collection, storage, and processing systems.",
+      "level_keywords_json": {
+        "junior": ["sql", "etl basics", "data pipelines"],
+        "mid": ["spark", "data warehousing", "cloud platforms"],
+        "senior": ["architecture", "scalability", "team leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440007",
+    "fields": {
+      "name": "Product Manager",
+      "category": "product",
+      "keywords_json": ["product management", "agile", "scrum", "roadmap", "user stories", "analytics", "a/b testing", "stakeholder management", "strategy", "market research"],
+      "description": "Defines product vision and strategy. Works with cross-functional teams to deliver products that meet user needs.",
+      "level_keywords_json": {
+        "junior": ["requirements", "user stories", "agile basics"],
+        "mid": ["roadmap", "analytics", "stakeholder management"],
+        "senior": ["strategy", "vision", "leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440008",
+    "fields": {
+      "name": "Mobile Developer (iOS)",
+      "category": "mobile",
+      "keywords_json": ["swift", "objective-c", "ios", "xcode", "swiftui", "uikit", "core data", "firebase", "app store", "mobile development"],
+      "description": "Develops native iOS applications using Swift or Objective-C. Creates mobile experiences for iPhone and iPad.",
+      "level_keywords_json": {
+        "junior": ["swift basics", "uikit", "xcode"],
+        "mid": ["swiftui", "architecture", "testing"],
+        "senior": ["performance", "architecture", "leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440009",
+    "fields": {
+      "name": "Mobile Developer (Android)",
+      "category": "mobile",
+      "keywords_json": ["kotlin", "java", "android", "android studio", "jetpack compose", "room", "retrofit", "firebase", "play store", "mobile development"],
+      "description": "Develops native Android applications using Kotlin or Java. Creates mobile experiences for Android devices.",
+      "level_keywords_json": {
+        "junior": ["kotlin basics", "android studio", "ui components"],
+        "mid": ["jetpack compose", "architecture", "testing"],
+        "senior": ["performance", "architecture", "leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440010",
+    "fields": {
+      "name": "QA Engineer",
+      "category": "qa",
+      "keywords_json": ["testing", "selenium", "cypress", "jest", "pytest", "test automation", "manual testing", "api testing", "performance testing", "bug tracking", "jira"],
+      "description": "Ensures software quality through testing. Creates and executes test plans, identifies bugs, and verifies fixes.",
+      "level_keywords_json": {
+        "junior": ["manual testing", "test cases", "bug reporting"],
+        "mid": ["test automation", "api testing", "performance testing"],
+        "senior": ["test strategy", "leadership", "quality assurance"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440011",
+    "fields": {
+      "name": "UI/UX Designer",
+      "category": "design",
+      "keywords_json": ["figma", "sketch", "adobe xd", "user research", "wireframing", "prototyping", "user experience", "user interface", "design systems", "accessibility"],
+      "description": "Designs user interfaces and experiences. Creates wireframes, prototypes, and design systems to improve usability.",
+      "level_keywords_json": {
+        "junior": ["wireframing", "basic design tools", "user research basics"],
+        "mid": ["prototyping", "design systems", "usability testing"],
+        "senior": ["design strategy", "leadership", "design thinking"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440012",
+    "fields": {
+      "name": "Backend Architect",
+      "category": "backend",
+      "keywords_json": ["architecture", "system design", "microservices", "distributed systems", "scalability", "performance", "security", "aws", "azure", "gcp", "kubernetes", "docker"],
+      "description": "Designs and architects backend systems. Focuses on scalability, performance, and system reliability at scale.",
+      "level_keywords_json": {
+        "junior": ["basic architecture", "design patterns"],
+        "mid": ["system design", "scalability", "performance"],
+        "senior": ["enterprise architecture", "technical leadership", "mentoring"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440013",
+    "fields": {
+      "name": "Frontend Architect",
+      "category": "frontend",
+      "keywords_json": ["architecture", "react", "vue", "angular", "typescript", "design systems", "performance", "scalability", "micro frontends", "webpack", "vite"],
+      "description": "Designs and architects frontend systems. Focuses on scalable frontend architecture and performance optimization.",
+      "level_keywords_json": {
+        "junior": ["frontend basics", "frameworks"],
+        "mid": ["architecture", "performance", "design systems"],
+        "senior": ["enterprise architecture", "technical leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440014",
+    "fields": {
+      "name": "ML Engineer",
+      "category": "data",
+      "keywords_json": ["python", "tensorflow", "pytorch", "machine learning", "deep learning", "nlp", "computer vision", "mlops", "kubernetes", "aws sagemaker", "model deployment"],
+      "description": "Builds and deploys machine learning models. Works on model training, optimization, and production deployment.",
+      "level_keywords_json": {
+        "junior": ["ml basics", "model training", "python"],
+        "mid": ["deep learning", "model optimization", "deployment"],
+        "senior": ["mlops", "research", "leadership"]
+      }
+    }
+  },
+  {
+    "model": "roles.rolecatalog",
+    "pk": "550e8400-e29b-41d4-a716-446655440015",
+    "fields": {
+      "name": "Security Engineer",
+      "category": "other",
+      "keywords_json": ["security", "penetration testing", "vulnerability assessment", "owasp", "encryption", "authentication", "authorization", "security audit", "compliance", "siem"],
+      "description": "Ensures application and infrastructure security. Identifies vulnerabilities and implements security measures.",
+      "level_keywords_json": {
+        "junior": ["security basics", "vulnerability scanning"],
+        "mid": ["penetration testing", "security architecture"],
+        "senior": ["security strategy", "compliance", "leadership"]
+      }
+    }
+  }
+]
+
