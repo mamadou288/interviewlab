@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from ..models import InterviewAnswer
-from .interview_question import InterviewQuestionSerializer
 
 
 class InterviewAnswerSerializer(serializers.Serializer):
@@ -12,7 +11,7 @@ class InterviewAnswerSerializer(serializers.Serializer):
 
 class InterviewAnswerResponseSerializer(serializers.ModelSerializer):
     """Serializer for answer response with scores and feedback."""
-    question = InterviewQuestionSerializer(read_only=True)
+    question = serializers.SerializerMethodField()
     
     class Meta:
         model = InterviewAnswer
@@ -21,4 +20,21 @@ class InterviewAnswerResponseSerializer(serializers.ModelSerializer):
             'feedback_json', 'skill_tags_json', 'submitted_at', 'time_seconds'
         ]
         read_only_fields = ['id', 'submitted_at']
+    
+    def get_question(self, obj):
+        """Include question data without circular import."""
+        # Import here to avoid circular import
+        from .interview_question import InterviewQuestionSerializer
+        # Create a serializer without the answer field to avoid recursion
+        question_data = {
+            'id': obj.question.id,
+            'order': obj.question.order,
+            'question_text': obj.question.question_text,
+            'category': obj.question.category,
+            'difficulty': obj.question.difficulty,
+            'skill_tags_json': obj.question.skill_tags_json,
+            'is_followup': obj.question.is_followup,
+            'created_at': obj.question.created_at,
+        }
+        return question_data
 

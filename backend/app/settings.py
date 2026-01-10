@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'roles',
     'interviews',
     'plans',
+    'analytics',
 ]
 
 MIDDLEWARE = [
@@ -217,10 +218,14 @@ SIMPLE_JWT = {
 }
 
 # CORS Settings
-CORS_ALLOWED_ORIGINS = env.list(
-    'CORS_ALLOWED_ORIGINS',
-    default=['http://localhost:5173', 'http://localhost:3000']
-)
+# Allow all localhost ports in development
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = env.list(
+        'CORS_ALLOWED_ORIGINS',
+        default=['http://localhost:5173', 'http://localhost:5176', 'http://localhost:3000']
+    )
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -248,3 +253,15 @@ ALLOWED_FILE_TYPES = [
     'application/pdf',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 ]
+
+# LLM Configuration for Question Generation
+USE_LLM_FOR_QUESTIONS = env.bool('USE_LLM_FOR_QUESTIONS', default=False)
+LLM_PROVIDER = env('LLM_PROVIDER', default='openai')  # 'openai' or 'anthropic'
+
+# OpenAI Configuration
+OPENAI_API_KEY = env('OPENAI_API_KEY', default=None)
+OPENAI_MODEL = env('OPENAI_MODEL', default='gpt-4')
+
+# Anthropic Configuration
+ANTHROPIC_API_KEY = env('ANTHROPIC_API_KEY', default=None)
+ANTHROPIC_MODEL = env('ANTHROPIC_MODEL', default='claude-3-sonnet-20240229')

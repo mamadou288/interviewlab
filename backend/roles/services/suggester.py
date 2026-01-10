@@ -186,23 +186,43 @@ def suggest_roles(cv_document_id: str) -> List[RoleSuggestion]:
     # Extract profile keywords
     profile_keywords = extract_profile_keywords(profile_data)
     
-    # Get all roles from catalog
-    roles = RoleCatalog.objects.all()
-    
-    # Calculate scores and create suggestions
-    suggestions_data = []
-    
-    for role in roles:
-        score = calculate_role_score(profile_keywords, role)
-        reasons = generate_reasons(profile_data, role, score)
-        
-        # Only include roles with score > 0
-        if score > 0:
+    # If no keywords extracted, still suggest all roles with a base score
+    # This ensures users always get suggestions even if CV extraction didn't work perfectly
+    if not profile_keywords:
+        # Return all roles with a minimal score so user can still see options
+        roles = RoleCatalog.objects.all()
+        suggestions_data = []
+        for role in roles:
             suggestions_data.append({
                 'role': role,
-                'score': score,
-                'reasons': reasons
+                'score': 0.1,  # Minimal score to show all roles
+                'reasons': ['Available role in our catalog']
             })
+    else:
+        # Get all roles from catalog
+        roles = RoleCatalog.objects.all()
+        
+        # Calculate scores and create suggestions
+        suggestions_data = []
+        
+        for role in roles:
+            score = calculate_role_score(profile_keywords, role)
+            reasons = generate_reasons(profile_data, role, score)
+            
+            # Include all roles, even with score 0, but prioritize those with score > 0
+            if score > 0:
+                suggestions_data.append({
+                    'role': role,
+                    'score': score,
+                    'reasons': reasons
+                })
+            else:
+                # Still include role but with minimal score
+                suggestions_data.append({
+                    'role': role,
+                    'score': 0.05,
+                    'reasons': ['Available role option']
+                })
     
     # Sort by score (descending)
     suggestions_data.sort(key=lambda x: x['score'], reverse=True)

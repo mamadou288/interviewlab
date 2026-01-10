@@ -1,5 +1,6 @@
 import random
 from typing import List, Dict
+from django.conf import settings
 from roles.models import RoleCatalog
 from ..models import InterviewSession, InterviewQuestion
 
@@ -293,6 +294,7 @@ def assign_skill_tags(questions: List[Dict], role: RoleCatalog) -> List[Dict]:
 def generate_interview_questions(session_id: str) -> List[InterviewQuestion]:
     """
     Main function that generates questions for an interview session.
+    Uses LLM if configured, otherwise falls back to hardcoded questions.
     
     Args:
         session_id: UUID of InterviewSession
@@ -305,12 +307,53 @@ def generate_interview_questions(session_id: str) -> List[InterviewQuestion]:
     except InterviewSession.DoesNotExist:
         return []
     
-    # Get profile data if available
+    # Try to use LLM for question generation
+    use_llm = getattr(settings, 'USE_LLM_FOR_QUESTIONS', False)
+    
+    if use_llm:
+        try:
+            from .llm_generator import generate_questions_with_llm
+            
+            # Get CV document if available
+            cv_document = None
+            if session.profile and session.profile.cv_document:
+                cv_document = session.profile.cv_document
+            
+            # Generate questions using LLM
+            question_dicts = generate_questions_with_llm(
+                role=session.role_selected,
+                level=session.level,
+                interview_type=session.type,
+                profile=session.profile,
+                cv_document=cv_document
+            )
+            
+            # If LLM returned questions, use them
+            if question_dicts:
+                # Create InterviewQuestion objects
+                questions = []
+                for idx, q_dict in enumerate(question_dicts, start=1):
+                    question = InterviewQuestion.objects.create(
+                        session=session,
+                        order=idx,
+                        question_text=q_dict['question_text'],
+                        category=q_dict.get('category', 'technical'),
+                        difficulty=q_dict.get('difficulty', 'medium'),
+                        skill_tags_json=q_dict.get('skill_tags', [])
+                    )
+                    questions.append(question)
+                
+                return questions
+        except Exception as e:
+            # Log error but continue with fallback
+            pass
+    
+    # Fallback to hardcoded questions
     profile_data = None
     if session.profile:
         profile_data = session.profile.data_json
     
-    # Select questions
+    # Select questions using hardcoded generator
     question_dicts = select_questions(
         session.role_selected,
         session.level,

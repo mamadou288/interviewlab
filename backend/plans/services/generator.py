@@ -1,5 +1,6 @@
 from typing import List, Dict, Set
 from interviews.models import InterviewSession, InterviewAnswer
+from interviews.services.report import generate_report
 from profiles.models import Profile
 from roles.models import RoleCatalog
 from ..models import PlanTemplate, UpgradePlan
@@ -557,7 +558,8 @@ def generate_upgrade_plan(session_id: str, duration_days: int = 7) -> UpgradePla
     skill_gaps = identify_skill_gaps(session.user, session.role_selected, session)
     
     # Combine weak skills and gaps, prioritizing gaps
-    all_skills = [tag for tag, score, source in skill_gaps] + weak_skills
+    # skill_gaps is already a list of skill tags (strings)
+    all_skills = skill_gaps + weak_skills
     # Remove duplicates while preserving order
     unique_skills = []
     seen = set()

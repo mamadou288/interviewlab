@@ -53,8 +53,21 @@ class UploadCVView(generics.CreateAPIView):
             extracted_text = extract_text(file)
             cv_document.extracted_text = extracted_text
             
-            # Extract profile data
+            # Extract profile data using LLM
             profile_data = extract_profile_data(extracted_text)
+            
+            # Find or create role based on extracted primary_role
+            if profile_data.get('primary_role'):
+                from roles.services.role_creator import find_or_create_role
+                role, role_created = find_or_create_role(
+                    role_name=profile_data['primary_role'],
+                    category=profile_data.get('role_category', 'other'),
+                    skills=profile_data.get('skills', [])
+                )
+                # Store role_id in profile_data for easy access
+                if role:
+                    profile_data['detected_role_id'] = str(role.id)
+                    profile_data['detected_role_name'] = role.name
             
             # Create or update Profile
             profile, created = Profile.objects.get_or_create(
