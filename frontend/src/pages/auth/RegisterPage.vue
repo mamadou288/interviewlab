@@ -122,7 +122,7 @@
             Already have an account?
             <RouterLink to="/auth/login" class="font-medium text-gray-900 hover:text-gray-700 transition-colors">
               Login
-            </RouterLink>
+          </RouterLink>
           </p>
         </div>
       </form>

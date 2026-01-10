@@ -29,6 +29,18 @@ const routes = [
     component: () => import('../pages/ProfilePage.vue'),
     meta: { requiresAuth: true },
   },
+  {
+    path: '/interviews/create',
+    name: 'interview-create',
+    component: () => import('../pages/InterviewCreatePage.vue'),
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/interviews/:id',
+    name: 'interview',
+    component: () => import('../pages/InterviewPage.vue'),
+    meta: { requiresAuth: true },
+  },
 ]
 
 const router = createRouter({

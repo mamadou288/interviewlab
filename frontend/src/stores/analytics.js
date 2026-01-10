@@ -24,11 +24,28 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     }
   }
 
+  async function fetchSessions(filters) {
+    isLoading.value = true
+    error.value = null
+    try {
+      const data = await analyticsService.getSessions(filters)
+      sessions.value = data.results
+      return data
+    } catch (err) {
+      error.value = err.response?.data?.error || 'Failed to fetch sessions'
+      throw err
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   return {
     overview,
+    sessions,
     isLoading,
     error,
     fetchOverview,
+    fetchSessions,
   }
 })
 

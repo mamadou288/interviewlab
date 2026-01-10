@@ -8,19 +8,19 @@
           <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-2">Profile</h1>
           <p class="text-gray-600 text-lg">Manage your profile and CV</p>
         </div>
-
+      
         <!-- Loading State -->
         <div v-if="profileStore.isLoading && !profileStore.profile" class="mb-8">
-          <LoadingSpinner message="Loading profile..." />
-        </div>
-
+        <LoadingSpinner message="Loading profile..." />
+      </div>
+      
         <!-- Content -->
         <div v-else class="space-y-8">
-          <!-- User Information Card -->
+        <!-- User Information Card -->
           <Card>
             <h2 class="text-2xl font-bold text-gray-900 mb-6">User Information</h2>
             <div class="space-y-4">
-              <div>
+            <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                 <p class="text-gray-900">{{ profileStore.profile?.user_email || authStore.user?.email || 'N/A' }}</p>
               </div>
@@ -28,8 +28,8 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
                 <p class="text-gray-900">
                   {{ getUserFullName }}
-                </p>
-              </div>
+              </p>
+            </div>
             </div>
           </Card>
 
@@ -118,8 +118,8 @@
                   >
                     {{ getStatusLabel(profileStore.cvDocument?.status) }}
                   </span>
-                </div>
-              </div>
+            </div>
+          </div>
               
               <!-- Replace CV Section -->
               <div v-if="!selectedFile" class="space-y-2">
@@ -138,8 +138,8 @@
                 >
                   Replace CV
                 </button>
-              </div>
-              
+        </div>
+
               <!-- File Selected for Replace -->
               <div v-if="selectedFile" class="space-y-4">
                 <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
@@ -150,15 +150,15 @@
                   <button
                     @click="handleUpload"
                     :disabled="isUploading"
-                    class="btn-primary"
-                  >
+              class="btn-primary"
+            >
                     {{ isUploading ? 'Uploading...' : 'Upload New CV' }}
                   </button>
                   <button
                     @click="cancelReplace"
                     :disabled="isUploading"
-                    class="btn-secondary"
-                  >
+                class="btn-secondary"
+              >
                     Cancel
                   </button>
                 </div>
@@ -168,7 +168,7 @@
             <!-- Error Message -->
             <div v-if="profileStore.error" class="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {{ profileStore.error }}
-            </div>
+          </div>
           </Card>
 
           <!-- Profile Data Section -->
@@ -223,9 +223,9 @@
                   <h4 class="font-medium text-gray-900">{{ edu.degree }}</h4>
                   <p class="text-gray-600">{{ edu.institution }}</p>
                   <p v-if="edu.dates" class="text-sm text-gray-500">{{ edu.dates }}</p>
-                </div>
-              </div>
-            </div>
+          </div>
+          </div>
+        </div>
 
             <!-- Projects -->
             <div v-if="profileStore.profile?.data_json?.projects?.length">

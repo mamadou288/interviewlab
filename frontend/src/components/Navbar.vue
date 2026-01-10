@@ -10,31 +10,31 @@
           <span class="text-xl font-bold text-gray-900 hidden sm:block">InterviewLab</span>
         </RouterLink>
 
-            <!-- Navigation Links -->
+        <!-- Navigation Links -->
             <div class="flex items-center space-x-2">
-              <RouterLink
-                to="/dashboard"
+          <RouterLink
+            to="/dashboard"
                 class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-                :class="[
-                  $route.name === 'dashboard'
+            :class="[
+              $route.name === 'dashboard'
                     ? 'bg-gray-100 text-gray-900'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                ]"
-              >
-                Dashboard
-              </RouterLink>
-              <RouterLink
-                to="/profile"
+            ]"
+          >
+            Dashboard
+          </RouterLink>
+          <RouterLink
+            to="/profile"
                 class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-                :class="[
+            :class="[
                   $route.name === 'profile'
                     ? 'bg-gray-100 text-gray-900'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                ]"
-              >
-                Profile
-              </RouterLink>
-            </div>
+            ]"
+          >
+            Profile
+          </RouterLink>
+        </div>
 
         <!-- User Menu -->
         <div class="flex items-center space-x-4">
@@ -46,7 +46,7 @@
             </div>
             <span class="text-sm text-gray-600 font-medium">
               {{ getUserDisplayName }}
-            </span>
+          </span>
           </div>
           <button
             @click="handleLogout"
@@ -61,35 +61,93 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { RouterLink } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import { useProfileStore } from '../stores/profile'
 
 const router = useRouter()
 const authStore = useAuthStore()
+const profileStore = useProfileStore()
+
+// Try to get user data from profile if not in auth store
+onMounted(async () => {
+  if (!authStore.user && authStore.isAuthenticated) {
+    try {
+      await profileStore.fetchProfile()
+      if (profileStore.profile) {
+        authStore.setUser({
+          email: profileStore.profile.user_email,
+          first_name: profileStore.profile.user_first_name,
+          last_name: profileStore.profile.user_last_name,
+        })
+      }
+    } catch (err) {
+      // Silently fail - user might not have profile yet
+    }
+  }
+})
 
 const getUserInitials = computed(() => {
-  const user = authStore.user
-  if (user?.first_name && user?.last_name) {
-    return (user.first_name[0] + user.last_name[0]).toUpperCase()
-  } else if (user?.first_name) {
-    return user.first_name[0].toUpperCase()
-  } else if (user?.email) {
-    return user.email[0].toUpperCase()
+  // Try auth store user first
+  let firstName = authStore.user?.first_name?.trim() || ''
+  let lastName = authStore.user?.last_name?.trim() || ''
+  
+  // Fallback to profile store if auth store doesn't have name
+  if (!firstName && profileStore.profile?.user_first_name) {
+    firstName = profileStore.profile.user_first_name.trim()
   }
+  if (!lastName && profileStore.profile?.user_last_name) {
+    lastName = profileStore.profile.user_last_name.trim()
+  }
+  
+  // If both first_name and last_name exist and are not empty
+  if (firstName && lastName) {
+    // Get first letter of first name and first letter of last name
+    const firstInitial = firstName[0].toUpperCase()
+    const lastInitial = lastName[0].toUpperCase()
+    return firstInitial + lastInitial
+  }
+  
+  // If only first_name exists and is not empty
+  if (firstName) {
+    // Use first two letters if available, otherwise just first letter
+    return firstName.length >= 2 
+      ? firstName.substring(0, 2).toUpperCase()
+      : firstName[0].toUpperCase()
+  }
+  
+  // Fallback to email first letter
+  const email = authStore.user?.email?.trim() || profileStore.profile?.user_email?.trim() || ''
+  if (email) {
+    return email[0].toUpperCase()
+  }
+  
   return 'U'
 })
 
 const getUserDisplayName = computed(() => {
-  const user = authStore.user
-  if (user?.first_name && user?.last_name) {
-    return `${user.first_name} ${user.last_name}`
-  } else if (user?.first_name) {
-    return user.first_name
-  } else if (user?.email) {
-    return user.email
+  // Try auth store user first
+  let firstName = authStore.user?.first_name?.trim() || ''
+  
+  // Fallback to profile store if auth store doesn't have name
+  if (!firstName && profileStore.profile?.user_first_name) {
+    firstName = profileStore.profile.user_first_name.trim()
   }
+  
+  // Show only first name if it exists and is not empty
+  if (firstName) {
+    return firstName
+  }
+  
+  // Fallback to email username part
+  const email = authStore.user?.email?.trim() || profileStore.profile?.user_email?.trim() || ''
+  if (email) {
+    const emailName = email.split('@')[0]
+    return emailName.charAt(0).toUpperCase() + emailName.slice(1)
+  }
+  
   return 'User'
 })
 

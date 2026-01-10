@@ -68,7 +68,7 @@
             Don't have an account?
             <RouterLink to="/auth/register" class="font-medium text-gray-900 hover:text-gray-700 transition-colors">
               Register
-            </RouterLink>
+          </RouterLink>
           </p>
         </div>
       </form>
